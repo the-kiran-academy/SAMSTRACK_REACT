@@ -1,14 +1,29 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function FacultyMenu() {
   const [studentMenuOpen, setStudentMenuOpen] = useState(false);
 
+  const nevigate=useNavigate();
+
+  const logout = () =>{
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
+    nevigate('/')
+  }
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50">
       <nav className="bg-white shadow flex items-center justify-between px-6 py-4">
         <div className="text-lg font-bold text-blue-600">SAMSTRACK</div>
 
         <div className="flex items-center gap-6">
+          {/* Dashboard */}
+          <a
+            href="/faculty-dashboard"
+            className="font-semibold text-blue-600 px-3 py-2 rounded hover:bg-blue-50 transition"
+          >
+            Dashboard
+          </a>
           {/* Students Dropdown */}
           <div className="relative">
             <button
@@ -60,13 +75,12 @@ function FacultyMenu() {
           >
             My Profile
           </a>
-          <button className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition">
+          <button onClick={logout} className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition">
             Logout
           </button>
         </div>
       </nav>
-      {/* Main Content */}
-      <div className="p-8">{/* ...other faculty dashboard content... */}</div>
+     
     </div>
   );
 }
